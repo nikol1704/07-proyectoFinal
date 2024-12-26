@@ -13,8 +13,12 @@ export class PokemonMapper {
 
     static fromPokemonModelToEntity(result: PokemonModel): PokemonDetail {
         return {
+            id: result.id, 
             name: result.name,
-            id: result.id
+            types: result.types.map( type => type.type.name),
+            abilities: result.abilities.map( ability => ability.ability.name),
+            height: result.height,
+            weight: result.weight,
         }
     }
 }

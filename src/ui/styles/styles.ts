@@ -2,6 +2,8 @@ import { StyleSheet } from "react-native";
 
 export const Colors = {
     background: '#E4E4E4',
+    white: '#FFFFFF',
+    gray: '#00000040'
 };
 
 export const Constants = {
