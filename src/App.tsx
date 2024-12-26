@@ -1,9 +1,11 @@
-import { Text, View } from "react-native"
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { StackNavigator } from './ui/navigation/StackNavigator';
 
 export const App = () => {
   return (
-    <View>
-      <Text>Home</Text>
-    </View>
+    <NavigationContainer>
+      <StackNavigator/>
+    </NavigationContainer>
   )
 }
