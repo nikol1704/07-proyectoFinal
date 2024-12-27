@@ -4,7 +4,7 @@ import { HttpAdapter } from "./HttpAdapter";
 
 interface Options {
     baseUrl: string,
-    params?: Record<string, string>
+    params?: Record<string, any>
 }
 
 export class AxiosAdapter implements HttpAdapter {

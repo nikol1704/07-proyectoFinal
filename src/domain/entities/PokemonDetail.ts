@@ -1,7 +1,7 @@
 import { PokemonModel } from "../../data/models/PokemonModel";
 
 export class PokemonDetail {
-    id: number
+    id: string
     name: string
     types: string[]
     abilities: string[]
@@ -9,7 +9,7 @@ export class PokemonDetail {
     weight: number
 
     constructor(
-        id: number, 
+        id: string, 
         name: string,
         types: string[],
         abilities: string[],

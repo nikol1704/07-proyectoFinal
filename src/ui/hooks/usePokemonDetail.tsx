@@ -6,6 +6,7 @@ import { PokemonDetail } from "../../domain/entities/PokemonDetail";
 export const usePokemonDetail = (id: string) => {
     const [isLoading, setIsLoading] = useState(true);
     const [pokemon, setPokemon] = useState<PokemonDetail>();
+
     const adapter = PokeAdpater;
     const repository = new PokemonRepositoryImpl(adapter);
 
@@ -22,6 +23,7 @@ export const usePokemonDetail = (id: string) => {
 
     const start = async () => {
         try {
+          console.log(`id pal fetch ${ id }`)
           const data = await repository.getPokemon(id);
           setPokemon(data);
         } catch (error) {
