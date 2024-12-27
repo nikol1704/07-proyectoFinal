@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native"
+import { Image, Pressable, StyleSheet, View, Text } from "react-native"
 import Card from "../shared/Card"
 import { Constants } from "../../styles/styles"
 import { usePokemonDetail } from "../../hooks/usePokemonDetail"
@@ -43,7 +43,7 @@ export const PokemonListItem = ({ id }: Props) => {
             source={{ uri: "" }}
           /> */}
           <View>
-            <Text>{pokemon?.name ?? 'Pokemon'}</Text>
+            <Text style={styles.text} >{pokemon?.name ?? 'Pokemon'}</Text>
 
 
             <Text>{types.join(', ')} </Text>
@@ -72,5 +72,9 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     borderRadius: 18
+  },
+  text: {
+    fontFamily: 'Montserrat-Regular',
+    fontWeight: 'bold',
   },
 })
