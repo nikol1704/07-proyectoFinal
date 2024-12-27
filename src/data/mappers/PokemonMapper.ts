@@ -5,9 +5,18 @@ import { PokemonModel } from "../models/PokemonModel";
 
 export class PokemonMapper {
     static fromPokemonListItemToEntity(result: PokemonListItem): Pokemon {
+        console.log("fromPokemonListItemToEntity")
+        const match = result.url.match(/\/(\d+\/)$/);
+        const idWithSlash = match ? match[1] : null;
+        console.log({
+            name: result.name,
+            url: result.url,
+            id: idWithSlash
+        });
         return {
             name: result.name,
-            url: result.url
+            url: result.url,
+            id: result.url.split('/')[-1]
         }
     }
 

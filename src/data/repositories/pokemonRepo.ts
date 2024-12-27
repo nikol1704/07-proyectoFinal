@@ -16,17 +16,21 @@ export class PokemonRepositoryImpl implements PokemonRepository {
     async getAllPokemons(): Promise<Pokemon[]> {
         try {
             const response = await this.http.get<PokemonListModel>('/pokemon');
+            console.log( [response.results])
             return response.results.map( result => PokemonMapper.fromPokemonListItemToEntity(result))
         } catch (error) {
+            console.log("error getAllPokemons" + { error });
             throw error;
         }
     }
 
     async getPokemon(id: string): Promise<PokemonDetail> {
         try {
+            console.log(id);
             const response = await this.http.get<PokemonModel>(`/pokemon/${ id }`);
             return PokemonMapper.fromPokemonModelToEntity(response);
         } catch (error) {
+            console.log("error getPokemon" + { error });
             throw error;
         }
     }

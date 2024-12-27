@@ -6,7 +6,7 @@ const Stack = createStackNavigator<StackNavigatorParams>();
 
 export type StackNavigatorParams = {
     [Routes.Home]: undefined
-    [Routes.Details]: { id: number, name: string }
+    [Routes.Details]: { id: string }
 }
 
 export enum Routes {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Pokemon } from "../entities/Pokemon";
+import { Pokemon } from "../../domain/entities/Pokemon";
 import { PokemonRepositoryImpl } from "../../data/repositories/pokemonRepo";
 import { PokeAdpater } from "../../data/network/PokeAdpater";
 
@@ -14,16 +14,14 @@ export const usePokemons = () => {
     }, [])
 
     const start = async () => {
-        const allPokemonsPromise = repository.getAllPokemons();
-
-        const [
-            allPokemons,
-        ] = await Promise.all([
-            allPokemonsPromise
-        ]);
-
-        setPokemons(allPokemons);
-        setIsLoading(false);
+        try {
+            const allPokemons = await repository.getAllPokemons();
+            setPokemons(allPokemons);
+        } catch (error) {
+            console.log('error' + { error })
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return {
