@@ -13,14 +13,7 @@ export const usePokemonDetail = (id: string) => {
     useEffect(() => {
         start();
     }, [id])
-
-    // const start = async () => {
-    //     const data = await repository.getPokemon(id);
-    
-    //     setPokemon(data);
-    //     setIsLoading(false);
-    // }
-
+  
     const start = async () => {
         try {
           console.log(`id pal fetch ${ id }`)

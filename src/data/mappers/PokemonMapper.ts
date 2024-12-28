@@ -29,6 +29,7 @@ export class PokemonMapper {
             abilities: result.abilities.map( ability => capitalize(ability.ability.name)),
             height: result.height,
             weight: result.weight,
+            imagePath: result.sprites.front_default
         }
     }
 }

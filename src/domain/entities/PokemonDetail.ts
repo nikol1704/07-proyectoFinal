@@ -7,6 +7,7 @@ export class PokemonDetail {
     abilities: string[]
     height: number
     weight: number
+    imagePath: string
 
     constructor(
         id: string, 
@@ -15,6 +16,7 @@ export class PokemonDetail {
         abilities: string[],
         height: number,
         weight: number,
+        imagePath: string
     ) {
         this.id = id,
         this.name = name
@@ -22,5 +24,6 @@ export class PokemonDetail {
         this.abilities = abilities
         this.height = height
         this.weight = weight
+        this.imagePath = imagePath
     }
 }

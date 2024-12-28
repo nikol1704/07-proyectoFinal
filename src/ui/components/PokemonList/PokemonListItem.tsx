@@ -1,9 +1,11 @@
 import { Image, Pressable, StyleSheet, View, Text } from "react-native"
 import Card from "../shared/Card"
-import { Constants } from "../../styles/styles"
+import { Colors, Constants } from "../../styles/styles"
 import { usePokemonDetail } from "../../hooks/usePokemonDetail"
 import { Routes, StackNavigatorParams } from "../../navigation/StackNavigator"
-import { NavigationProp, useNavigation } from "@react-navigation/native"
+import { NavigationProp, RouteProp, useNavigation, useRoute } from "@react-navigation/native"
+import { Styles } from '../../styles/styles'
+import { Subtitle } from '../shared/Subtitle';
 
 interface Props {
   id: string
@@ -12,6 +14,7 @@ interface Props {
 export const PokemonListItem = ({ id }: Props) => {
   const { isLoading, pokemon } = usePokemonDetail(id);
   const navigation = useNavigation<NavigationProp<StackNavigatorParams>>();
+
   const types = pokemon?.types ?? []
   const abilities = pokemon?.abilities ?? []
 
@@ -37,18 +40,20 @@ export const PokemonListItem = ({ id }: Props) => {
         })}
       >
         <View style={styles.container}>
-          <View style={styles.item}></View>
-          {/* <Image
-            style={styles.image}
-            source={{ uri: "" }}
-          /> */}
-          <View>
-            <Text style={styles.text} >{pokemon?.name ?? 'Pokemon'}</Text>
+          <View style={styles.item}>
+            <Image
+              style={styles.image}
+              source={{ uri: pokemon?.imagePath }}
+              resizeMode='contain'
+            />
+          </View>
 
+          <View style={{ alignItems: 'center',  flex: 1 }}>
+            <Text style={styles.title} >{pokemon?.name ?? 'Pokemon'}</Text>
 
-            <Text>{types.join(', ')} </Text>
-            <Text>{abilities.join(', ')} </Text>
+            <Subtitle title="Type:" description={ types.join(', ') } ></Subtitle>
 
+            <Subtitle title="Abilities:" description= {abilities.join(', ')} ></Subtitle>
           </View>
         </View>
       </Pressable>
@@ -64,17 +69,22 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     padding: Constants.large,
     paddingBottom: Constants.xSmall,
-    minHeight: 140
+    minHeight: 140,
   },
   item: {
-    width: '40%'
+    width: '40%',
+    paddingRight: 16
   },
   image: {
     flex: 1,
-    borderRadius: 18
+    borderRadius: 2,
+    borderColor: Colors.black,
+    borderWidth: 1,
   },
-  text: {
-    fontFamily: 'Montserrat-Regular',
-    fontWeight: 'bold',
-  },
+  title: {
+    ...Styles.title,
+    fontSize: 20,
+    alignItems: 'center',
+    paddingBottom: Constants.xLarge,
+  }
 })
