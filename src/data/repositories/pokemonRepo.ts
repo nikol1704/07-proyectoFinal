@@ -13,15 +13,29 @@ export class PokemonRepositoryImpl implements PokemonRepository {
         this.http = http;
     }
 
-    async getAllPokemons(): Promise<Pokemon[]> {
+    async getAllPokemons(offset: number): Promise<PokemonDetail[]> {
         try {
-            const response = await this.http.get<PokemonListModel>('/pokemon');
-            return response.results.map( (result) => {
-                console.log("ggetAllPokemons");
-                console.log(PokemonMapper.fromPokemonListItemToEntity(result));
-                    return PokemonMapper.fromPokemonListItemToEntity(result)
-                }
-            )
+            // const response = await this.http.get<PokemonListModel>(`/pokemon?offset=${offset}`);
+            // console.log(response.next)
+            // return response.results.map( (result) => {
+            //     console.log(PokemonMapper.fromPokemonListItemToEntity(result));
+            //         return PokemonMapper.fromPokemonListItemToEntity(result)
+            //     }
+            // )
+             // Obtener la lista de Pokémon
+             const response = await this.http.get<PokemonListModel>(`/pokemon?offset=${offset}`);
+             console.log(response.next);
+ 
+             const pokemonDetailsPromises = response.results.map(async (result) => {
+                 console.log(PokemonMapper.fromPokemonListItemToEntity(result));
+                 
+                 const pokemonDetailResponse = await this.http.get<PokemonModel>(`/pokemon/${result.name}`);
+                 
+                 // Mapear y retornar el detalle del Pokémon
+                 return PokemonMapper.fromPokemonModelToEntity(pokemonDetailResponse);
+             });
+
+             return await Promise.all(pokemonDetailsPromises);
         } catch (error) {
             console.log("error getAllPokemons" + { error });
             throw error;
@@ -30,7 +44,6 @@ export class PokemonRepositoryImpl implements PokemonRepository {
 
     async getPokemon(id: string): Promise<PokemonDetail> {
         try {
-            console.log(id);
             const response = await this.http.get<PokemonModel>(`/pokemon/${ id }`);
             return PokemonMapper.fromPokemonModelToEntity(response);
         } catch (error) {

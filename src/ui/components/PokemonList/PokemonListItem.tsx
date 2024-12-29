@@ -1,22 +1,23 @@
 import { Image, Pressable, StyleSheet, View, Text } from "react-native"
-import Card from "../shared/Card"
+import { Card } from "../shared/Card"
 import { Colors, Constants } from "../../styles/styles"
-import { usePokemonDetail } from "../../hooks/usePokemonDetail"
 import { Routes, StackNavigatorParams } from "../../navigation/StackNavigator"
 import { NavigationProp, RouteProp, useNavigation, useRoute } from "@react-navigation/native"
 import { Styles } from '../../styles/styles'
 import { Subtitle } from '../shared/Subtitle';
+import { PokemonDetail } from "../../../domain/entities/PokemonDetail"
 
 interface Props {
-  id: string
+  pokemon: PokemonDetail
+  isLoading: boolean
 }
 
-export const PokemonListItem = ({ id }: Props) => {
-  const { isLoading, pokemon } = usePokemonDetail(id);
+export const PokemonListItem = ({ pokemon, isLoading }: Props) => {
   const navigation = useNavigation<NavigationProp<StackNavigatorParams>>();
 
   const types = pokemon?.types ?? []
   const abilities = pokemon?.abilities ?? []
+  const id = pokemon.id
 
   if (isLoading) {
     return (

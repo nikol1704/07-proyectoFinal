@@ -1,21 +1,48 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import { Colors, Constants, Styles } from '../../styles/styles'
 import { useRoute, RouteProp } from '@react-navigation/native';
 import { StackNavigatorParams, Routes } from '../../navigation/StackNavigator';
 import { usePokemonDetail } from '../../hooks/usePokemonDetail';
-import Card from '../../components/shared/Card';
-import { Subtitle } from '../../components/shared/Subtitle';
+import { Card, Subtitle, StarIcon } from '../../components/shared';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useOrientation } from '../../hooks/useOrientation';
-import { IonIcon } from '../../components/shared/IonIcon';
+import { useEffect, useState } from 'react';
+import { usePokemonStore } from '../../hooks/usePokemonStore';
 
 export const DetailsScreen = () => {
   const { id } = useRoute<RouteProp<StackNavigatorParams, Routes.Details>>().params;
-  const { isLoading, pokemon } = usePokemonDetail(id);
+  const { isLoading, pokemon, fetchPokemon } = usePokemonDetail(id);
   const isLandscape = useOrientation();
 
-  const types = pokemon?.types ?? []
-  const abilities = pokemon?.abilities ?? []
+  const { savedPokemons, addPokemon, updatePokemon } = usePokemonStore();
+  let savedPokemon = savedPokemons.find(pokemon => pokemon.id === id);
+  const [isFavorite, setIsFavorite] = useState(savedPokemon?.isFavorite ?? false);
+
+  const types = savedPokemon?.types ?? []
+  const abilities = savedPokemon?.abilities ?? []
+
+  // Comprobamos si esta en store
+  useEffect(() => {
+    if (savedPokemon == undefined) {
+      console.log("no esta guardado, fetch");
+      fetchPokemon()
+    }
+  }, [])
+
+  useEffect(() => {
+      if (pokemon) {
+        console.log("guardado");
+        addPokemon(pokemon)
+      }
+  }, [pokemon])
+
+  const saveFavorite = (isFavorite: boolean) => {
+    if (savedPokemon) {
+      setIsFavorite(isFavorite);
+      savedPokemon.isFavorite = isFavorite;
+      updatePokemon(savedPokemon);
+    }
+  }
 
   if (isLoading) {
     return (
@@ -33,22 +60,27 @@ export const DetailsScreen = () => {
           <View style={{ minHeight: 140 }}>
             <Image
               style={styles.image}
-              source={{ uri: pokemon?.imagePath }}
+              source={{ uri: savedPokemon?.imagePath }}
               resizeMode='contain'
             />
           </View>
 
-          <StarIcon/>
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-end', padding: 24, }}>
+            <StarIcon 
+              isSelected={ isFavorite } 
+              action={ () => { saveFavorite(!isFavorite) }}
+            />
+          </View>
 
-          <Subtitle title="Name" description={pokemon?.name ?? "Pokemon"} fontSizeTitle={16} fontSizeDescription={16}></Subtitle>
+          <Subtitle title="Name" description={savedPokemon?.name ?? "Pokemon"} fontSizeTitle={16} fontSizeDescription={16} textAlign='right'></Subtitle>
 
-          <Subtitle title="Type:" description={types.join(', ')} fontSizeTitle={16} fontSizeDescription={16} ></Subtitle>
+          <Subtitle title="Type:" description={types.join(', ')} fontSizeTitle={16} fontSizeDescription={16} textAlign='right'></Subtitle>
 
-          <Subtitle title="Abilities:" description={abilities.join(', ')} fontSizeTitle={16} fontSizeDescription={16}></Subtitle>
+          <Subtitle title="Abilities:" description={abilities.join(', ')} fontSizeTitle={16} fontSizeDescription={16} textAlign='right'></Subtitle>
 
-          <Subtitle title="Height:" description={`${pokemon?.height ?? 0}cm`} fontSizeTitle={16} fontSizeDescription={16}></Subtitle>
+          <Subtitle title="Height:" description={`${savedPokemon?.height ?? 0}cm`} fontSizeTitle={16} fontSizeDescription={16} textAlign='right'></Subtitle>
 
-          <Subtitle title="Weight:" description={`${pokemon?.weight ?? 0}kg`} fontSizeTitle={16} fontSizeDescription={16}></Subtitle>
+          <Subtitle title="Weight:" description={`${savedPokemon?.weight ?? 0}kg`} fontSizeTitle={16} fontSizeDescription={16} textAlign='right'></Subtitle>
 
         </View>
 
@@ -57,22 +89,12 @@ export const DetailsScreen = () => {
   );
 }
 
-const StarIcon = () => {
-  return (
-    <Pressable
-      onPress={() => { }}
-    >
-      <IonIcon name="star" size={40}></IonIcon>
-    </Pressable>
-  )
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
     padding: Constants.xLarge,
-    gap: 10,
+    gap: 12,
   },
   image: {
     flex: 1,

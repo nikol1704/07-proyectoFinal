@@ -1,24 +1,27 @@
 import { useEffect, useState } from "react";
-import { Pokemon } from "../../domain/entities/Pokemon";
 import { PokemonRepositoryImpl } from "../../data/repositories/pokemonRepo";
 import { PokeAdpater } from "../../data/network/PokeAdpater";
 import { PokemonDetail } from "../../domain/entities/PokemonDetail";
 
-export const usePokemons = () => {
+export const usePokemons = (offset: number = 0, incrementOffset: number = 0) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [allPokemons, setAllPokemons] = useState<PokemonDetail[]>([]);
+  const [page, setPage] = useState(offset);
 
   const adapter = PokeAdpater;
   const repository = new PokemonRepositoryImpl(adapter);
 
   useEffect(() => {
-    start();
+    setTimeout(() => {
+      start();
+    }, 40000);
   }, []);
 
   const start = async () => {
     try {
-      const allPokemons = await repository.getAllPokemons();
-      setPokemons(allPokemons);
+      const responsePokemons = await repository.getAllPokemons(page);
+      setPage(page + incrementOffset);
+      setAllPokemons([...allPokemons, ...responsePokemons]);
 
     } catch (error) {
       console.error('Error al cargar los Pokémon:', error);
@@ -27,8 +30,15 @@ export const usePokemons = () => {
     }
   };
 
+  const nextItems = async () => {
+    console.log('page nextItems');
+    console.log(page);
+    start()
+  };
+
   return {
     isLoading,
-    pokemons,
+    allPokemons,
+    nextItems
   };
 };

@@ -6,7 +6,8 @@ export const Colors = {
     gray: '#00000040',
     black: '#000000',
     blue: '#809AF5',
-    disabled: '#D9D9D9'
+    disabled: '#D9D9D9',
+    yellow: '#ffd32c'
 };
 
 export const Constants = {

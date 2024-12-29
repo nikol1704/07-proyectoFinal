@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, TextStyle, View } from "react-native"
 import { Fonts, Styles } from "../../styles/styles"
 
 interface Props {
@@ -6,9 +6,10 @@ interface Props {
     description: string,
     fontSizeTitle?: number,
     fontSizeDescription?: number,
+    textAlign?: TextStyle['textAlign']
 }
 
-export const Subtitle = ({ title, description, fontSizeTitle=12, fontSizeDescription=10}: Props) => {
+export const Subtitle = ({ title, description, fontSizeTitle=12, fontSizeDescription=10, textAlign='left'}: Props) => {
     return (
         <View style={styles.container}>
             <Text style= { {...Styles.title, flex : 1, fontSize:fontSizeTitle } }>{title}</Text>
@@ -17,7 +18,8 @@ export const Subtitle = ({ title, description, fontSizeTitle=12, fontSizeDescrip
                 style= {{
                     fontFamily: Fonts.montserratRegular, 
                     flex : 1, 
-                    fontSize:fontSizeDescription
+                    fontSize:fontSizeDescription,
+                    textAlign: textAlign
                 }}
             >
                 {description} 
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
     container: {
         flex:1, 
         flexDirection:"row", 
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
     }
 })

@@ -1,5 +1,3 @@
-import { PokemonModel } from "../../data/models/PokemonModel";
-
 export class PokemonDetail {
     id: string
     name: string
@@ -8,6 +6,7 @@ export class PokemonDetail {
     height: number
     weight: number
     imagePath: string
+    isFavorite: boolean
 
     constructor(
         id: string, 
@@ -16,8 +15,11 @@ export class PokemonDetail {
         abilities: string[],
         height: number,
         weight: number,
-        imagePath: string
+        imagePath: string,
+        isFavorite: boolean
     ) {
+        console.log("types");
+        console.log([...types]);
         this.id = id,
         this.name = name
         this.types = types
@@ -25,5 +27,7 @@ export class PokemonDetail {
         this.height = height
         this.weight = weight
         this.imagePath = imagePath
+        this.isFavorite = isFavorite
     }
+
 }

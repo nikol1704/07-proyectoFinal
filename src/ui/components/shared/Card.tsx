@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { Constants, Colors } from "../../styles/styles";
 
-export default function Card( { children }: { children: React.ReactNode }) {
+export const Card = ( { children }: { children: React.ReactNode }) => {
     return(
         <View style= {{ 
             borderRadius: Constants.large,
