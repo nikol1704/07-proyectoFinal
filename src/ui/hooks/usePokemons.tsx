@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { PokemonRepositoryImpl } from "../../data/repositories/pokemonRepo";
-import { PokeAdpater } from "../../data/network/PokeAdpater";
-import { PokemonDetail } from "../../domain/entities/PokemonDetail";
+import { PokeAdpater } from "../../data/network";
+import { PokemonDetail } from "../../domain/entities";
 
 export const usePokemons = (offset: number = 0, incrementOffset: number = 0) => {
   const [isLoading, setIsLoading] = useState(true);

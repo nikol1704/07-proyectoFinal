@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PokemonRepositoryImpl } from "../../data/repositories/pokemonRepo";
-import { PokeAdpater } from "../../data/network/PokeAdpater";
-import { PokemonDetail } from "../../domain/entities/PokemonDetail";
+import { PokeAdpater } from "../../data/network";
+import { PokemonDetail } from "../../domain/entities";
 
 export const usePokemonDetail = (id: string) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,10 +10,6 @@ export const usePokemonDetail = (id: string) => {
     const adapter = PokeAdpater;
     const repository = new PokemonRepositoryImpl(adapter);
 
-    // useEffect(() => {
-    //     start();
-    // }, [id])
-  
     const fetchPokemon = async () => {
         try {
           console.log(`id pal fetch ${ id }`)

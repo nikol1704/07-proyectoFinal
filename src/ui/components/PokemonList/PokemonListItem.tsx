@@ -1,11 +1,9 @@
 import { Image, Pressable, StyleSheet, View, Text } from "react-native"
-import { Card } from "../shared/Card"
-import { Colors, Constants } from "../../styles/styles"
+import { Colors, Constants, Styles } from "../../styles/styles"
 import { Routes, StackNavigatorParams } from "../../navigation/StackNavigator"
-import { NavigationProp, RouteProp, useNavigation, useRoute } from "@react-navigation/native"
-import { Styles } from '../../styles/styles'
-import { Subtitle } from '../shared/Subtitle';
-import { PokemonDetail } from "../../../domain/entities/PokemonDetail"
+import { NavigationProp, useNavigation } from "@react-navigation/native"
+import { Card, Subtitle } from '../shared';
+import { PokemonDetail } from "../../../domain/entities"
 
 interface Props {
   pokemon: PokemonDetail

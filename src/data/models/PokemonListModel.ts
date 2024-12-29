@@ -1,5 +1,3 @@
-import { Pokemon } from "../../domain/entities/Pokemon";
-
 export interface PokemonListModel {
     count:    number;
     next:     string;

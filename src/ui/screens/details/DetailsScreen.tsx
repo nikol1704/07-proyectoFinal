@@ -2,12 +2,10 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import { Colors, Constants, Styles } from '../../styles/styles'
 import { useRoute, RouteProp } from '@react-navigation/native';
 import { StackNavigatorParams, Routes } from '../../navigation/StackNavigator';
-import { usePokemonDetail } from '../../hooks/usePokemonDetail';
 import { Card, Subtitle, StarIcon } from '../../components/shared';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useOrientation } from '../../hooks/useOrientation';
 import { useEffect, useState } from 'react';
-import { usePokemonStore } from '../../hooks/usePokemonStore';
+import { usePokemonStore, useOrientation, usePokemonDetail } from '../../hooks';
 
 export const DetailsScreen = () => {
   const { id } = useRoute<RouteProp<StackNavigatorParams, Routes.Details>>().params;

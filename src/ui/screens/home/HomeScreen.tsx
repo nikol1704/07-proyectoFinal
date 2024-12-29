@@ -1,11 +1,9 @@
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
-import { Colors, Constants, Styles } from '../../styles/styles'
-import { usePokemons } from '../../hooks/usePokemons';
+import { StyleSheet, View } from 'react-native'
+import { Constants, Styles } from '../../styles/styles'
 import { PokemonListItem } from '../../components/PokemonList/PokemonListItem';
 import { FlatList } from 'react-native-gesture-handler';
-import { useOrientation } from '../../hooks/useOrientation';
-import { LoadingIndicator } from '../../components/shared/LoadingIndicator';
-import { ItemSeparator } from '../../components/shared/ItemSeparator';
+import { useOrientation, usePokemons } from '../../hooks';
+import { LoadingIndicator, ItemSeparator } from '../../components/shared';
 
 export const HomeScreen = () => {
   const { isLoading, allPokemons, nextItems } = usePokemons(0, 20);

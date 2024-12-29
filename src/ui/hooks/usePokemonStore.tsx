@@ -1,6 +1,6 @@
 
 import { create } from "zustand";
-import { PokemonDetail } from "../../domain/entities/PokemonDetail";
+import { PokemonDetail } from "../../domain/entities";
 
 interface StoreState {
   savedPokemons: PokemonDetail[];

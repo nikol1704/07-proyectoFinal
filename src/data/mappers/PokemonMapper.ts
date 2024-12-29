@@ -1,8 +1,6 @@
-import { Pokemon } from "../../domain/entities/Pokemon";
-import { PokemonDetail } from "../../domain/entities/PokemonDetail";
+import { Pokemon, PokemonDetail } from "../../domain/entities";
 import { capitalize } from "../../helpers/StringHelpers";
-import { PokemonListItem } from "../models/PokemonListModel";
-import { PokemonModel } from "../models/PokemonModel";
+import { PokemonListItem, PokemonModel } from "../models";
 
 export class PokemonMapper {
     static fromPokemonListItemToEntity(result: PokemonListItem): Pokemon {

@@ -1,5 +1,4 @@
 import { ActivityIndicator, StyleSheet, View } from "react-native"
-import { TouchableWithoutFeedback } from "react-native-gesture-handler"
 import { Colors } from "../../styles/styles"
 
 export const LoadingIndicator = () => {

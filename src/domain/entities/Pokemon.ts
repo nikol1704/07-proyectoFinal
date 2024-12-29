@@ -1,5 +1,3 @@
-import { PokemonListItem } from "../../data/models/PokemonListModel"
-
 export class Pokemon {
     name: string
     url:  string
