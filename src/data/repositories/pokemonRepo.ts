@@ -14,7 +14,8 @@ export class PokemonRepositoryImpl implements PokemonRepository {
     async getAllPokemons(offset: number): Promise<PokemonDetail[]> {
         try {
             const response = await this.http.get<PokemonListModel>(`/pokemon?offset=${offset}`);
-            console.log(response.next);
+
+            if (response.next == null) { return [] }
 
             const pokemonDetailsPromises = response.results.map(async (result) => {
                 const pokemonDetailResponse = await this.http.get<PokemonModel>(`/pokemon/${result.name}`);

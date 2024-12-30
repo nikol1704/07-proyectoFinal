@@ -28,10 +28,10 @@ export const DetailsScreen = () => {
   }, [])
 
   useEffect(() => {
-      if (pokemon) {
-        console.log("guardado");
-        addPokemon(pokemon)
-      }
+    if (pokemon) {
+      console.log("guardado");
+      addPokemon(pokemon)
+    }
   }, [pokemon])
 
   const saveFavorite = (isFavorite: boolean) => {
@@ -51,38 +51,41 @@ export const DetailsScreen = () => {
       </Card>
     );
   }
+
   return (
-    <ScrollView style={{ ...Styles.container, padding: isLandscape ? 40 : Constants.xLarge }}>
-      <Card>
-        <View style={styles.container}>
-          <View style={{ minHeight: 140 }}>
-            <Image
-              style={styles.image}
-              source={{ uri: savedPokemon?.imagePath }}
-              resizeMode='contain'
-            />
+    <ScrollView style={{ paddingHorizontal: isLandscape ? 60 : Constants.xLarge }}>
+      <View style={{ paddingVertical: isLandscape ? 40 : 80 }}>
+        <Card>
+          <View style={styles.container}>
+            <View style={{ minHeight: 140 }}>
+              <Image
+                style={styles.image}
+                source={{ uri: savedPokemon?.imagePath }}
+                resizeMode='contain'
+              />
+            </View>
+
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', padding: 24, }}>
+              <StarIcon
+                isSelected={isFavorite}
+                action={() => { saveFavorite(!isFavorite) }}
+              />
+            </View>
+
+            <Subtitle title="Name" description={savedPokemon?.name ?? "Pokemon"} fontSizeTitle={16} fontSizeDescription={16}></Subtitle>
+
+            <Subtitle title="Type:" description={types.join(', ')} fontSizeTitle={16} fontSizeDescription={16}></Subtitle>
+
+            <Subtitle title="Abilities:" description={abilities.join(', ')} fontSizeTitle={16} fontSizeDescription={16}></Subtitle>
+
+            <Subtitle title="Height:" description={`${savedPokemon?.height ?? 0} cm`} fontSizeTitle={16} fontSizeDescription={16}></Subtitle>
+
+            <Subtitle title="Weight:" description={`${savedPokemon?.weight ?? 0} kg`} fontSizeTitle={16} fontSizeDescription={16}></Subtitle>
+
           </View>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'flex-end', padding: 24, }}>
-            <StarIcon 
-              isSelected={ isFavorite } 
-              action={ () => { saveFavorite(!isFavorite) }}
-            />
-          </View>
-
-          <Subtitle title="Name" description={savedPokemon?.name ?? "Pokemon"} fontSizeTitle={16} fontSizeDescription={16} textAlign='right'></Subtitle>
-
-          <Subtitle title="Type:" description={types.join(', ')} fontSizeTitle={16} fontSizeDescription={16} textAlign='right'></Subtitle>
-
-          <Subtitle title="Abilities:" description={abilities.join(', ')} fontSizeTitle={16} fontSizeDescription={16} textAlign='right'></Subtitle>
-
-          <Subtitle title="Height:" description={`${savedPokemon?.height ?? 0}cm`} fontSizeTitle={16} fontSizeDescription={16} textAlign='right'></Subtitle>
-
-          <Subtitle title="Weight:" description={`${savedPokemon?.weight ?? 0}kg`} fontSizeTitle={16} fontSizeDescription={16} textAlign='right'></Subtitle>
-
-        </View>
-
-      </Card>
+        </Card>
+      </View>
     </ScrollView>
   );
 }
@@ -99,6 +102,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderColor: Colors.black,
     borderWidth: 1,
+    minHeight: 200
   },
   title: {
     ...Styles.title,

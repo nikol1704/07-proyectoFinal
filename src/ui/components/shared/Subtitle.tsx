@@ -9,7 +9,7 @@ interface Props {
     textAlign?: TextStyle['textAlign']
 }
 
-export const Subtitle = ({ title, description, fontSizeTitle=12, fontSizeDescription=10, textAlign='left'}: Props) => {
+export const Subtitle = ({ title, description, fontSizeTitle=12, fontSizeDescription=10, textAlign='right'}: Props) => {
     return (
         <View style={styles.container}>
             <Text style= { {...Styles.title, flex : 1, fontSize:fontSizeTitle } }>{title}</Text>
@@ -17,9 +17,10 @@ export const Subtitle = ({ title, description, fontSizeTitle=12, fontSizeDescrip
                 numberOfLines={1} 
                 style= {{
                     fontFamily: Fonts.montserratRegular, 
-                    flex : 1, 
+                    flex: 1, 
                     fontSize:fontSizeDescription,
-                    textAlign: textAlign
+                    textAlign: textAlign,
+                    letterSpacing: 0.5
                 }}
             >
                 {description} 

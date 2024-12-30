@@ -33,4 +33,10 @@ export const Styles = StyleSheet.create({
         fontWeight: 'bold',
         letterSpacing: 1
     },
+    shadow: {
+        shadowColor: '#171717',
+        shadowOffset: {width: 0, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+    },
 })
