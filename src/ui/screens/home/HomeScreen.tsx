@@ -10,9 +10,11 @@ export const HomeScreen = () => {
   const isLandscape = useOrientation();
 
   if (isLoading && allPokemons.length == 0) {
-    <View style={styles.container}>
-      <LoadingIndicator />
-    </View>
+    return (
+      <View style={styles.container}>
+        <LoadingIndicator />
+      </View>
+    )
   }
 
   return (
@@ -23,8 +25,8 @@ export const HomeScreen = () => {
       renderItem={({ item }) => <PokemonListItem pokemon={item} isLoading={isLoading} />}
       ItemSeparatorComponent={() => <ItemSeparator />}
       ListFooterComponent={<LoadingIndicator />}
-      onEndReachedThreshold={1}
-      onEndReached={nextItems}
+    // onEndReachedThreshold={1}
+    //onEndReached={nextItems}
     />
   )
 }

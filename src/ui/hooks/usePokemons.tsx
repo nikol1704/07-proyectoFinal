@@ -14,7 +14,7 @@ export const usePokemons = (offset: number = 0, incrementOffset: number = 0) => 
   useEffect(() => {
     setTimeout(() => {
       start();
-    }, 40000);
+    }, 20000);
   }, []);
 
   const start = async () => {

@@ -4,7 +4,7 @@ import { Colors } from "../../styles/styles"
 export const LoadingIndicator = () => {
     return(
         <View style={ styles.footer }>
-            <ActivityIndicator color={ Colors.disabled }></ActivityIndicator>
+            <ActivityIndicator color={ Colors.blue }></ActivityIndicator>
         </View>
     )
 }

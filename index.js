@@ -8,7 +8,7 @@
 // import * as React from "react";
 
 // async function enableMocking() {
-//     // if (!__DEV__) { return }
+//     if (!__DEV__) { return }
 
 //     await import('./msw.polyfills')
 //     const { server } = await import('./src/mocks/server')
@@ -16,14 +16,9 @@
 // }
 
 
-// AppRegistry.registerComponent(appName, () => {
-//     React.useEffect(() => {
-//         enableMocking().then(() => setMockingEnabled(true))
-//     }, [])
-
-//     if (!isMockingEnabled) return null
-//     return <App />
-// });
+// enableMocking().then(() => {
+//     AppRegistry.registerComponent(appName, () => App)
+// })
 
 import { AppRegistry } from 'react-native';
 import * as React from 'react';
@@ -37,6 +32,7 @@ async function enableMocking() {
         await import('./msw.polyfills'); // Asegúrate de que 'msw.polyfills' esté disponible
         const { server } = await import('./src/mocks/server'); // Cargar el servidor de mocks
         server.listen(); // Iniciar el servidor de mocks
+        console.log(server.listHandlers())
     }
 }
 
@@ -51,8 +47,7 @@ const AppWrapper = () => {
     if (!isMockingEnabled) {
         return null;  // O mostrar un loader mientras se configuran los mocks
     }
-    console.log('isMockingEnabled')
-    console.log(isMockingEnabled)
+
     return <App />;  // Renderiza la app cuando los mocks estén habilitados
 };
 
