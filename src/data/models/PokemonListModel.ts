@@ -1,6 +1,6 @@
 export interface PokemonListModel {
     count:    number;
-    next:     string;
+    next:     null;
     previous: null;
     results:  PokemonListItem[];
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PokemonRepositoryImpl } from "../../data/repositories/pokemonRepo";
+import { PokemonRepositoryImpl } from "../../data/repositories/PokemonRepositoryImpl";
 import { PokeAdpater } from "../../data/network";
 import { PokemonDetail } from "../../domain/entities";
 

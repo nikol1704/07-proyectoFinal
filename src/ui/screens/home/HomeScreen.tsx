@@ -6,10 +6,10 @@ import { useOrientation, usePokemons } from '../../hooks';
 import { LoadingIndicator, ItemSeparator } from '../../components/shared';
 
 export const HomeScreen = () => {
-  const { isLoading, allPokemons, nextItems } = usePokemons(0, 20);
+  const { isLoading, allPokemons, nextItems, hasNext } = usePokemons(0, 20);
   const isLandscape = useOrientation();
 
-  if (isLoading && allPokemons.length == 0) {
+  if (isLoading) {
     return (
       <View style={styles.container}>
         <LoadingIndicator />
@@ -24,9 +24,9 @@ export const HomeScreen = () => {
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => <PokemonListItem pokemon={item} isLoading={isLoading} />}
       ItemSeparatorComponent={() => <ItemSeparator />}
-      ListFooterComponent={<LoadingIndicator />}
-    // onEndReachedThreshold={1}
-    //onEndReached={nextItems}
+      ListFooterComponent={ hasNext ? <LoadingIndicator /> : null }
+      onEndReachedThreshold={1}
+      onEndReached={nextItems}
     />
   )
 }

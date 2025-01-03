@@ -2,54 +2,47 @@
  * @format
  */
 
-// import { AppRegistry } from 'react-native';
-// import { App } from './src/App';
-// import { name as appName } from './app.json';
-// import * as React from "react";
-
-// async function enableMocking() {
-//     if (!__DEV__) { return }
-
-//     await import('./msw.polyfills')
-//     const { server } = await import('./src/mocks/server')
-//     server.listen()
-// }
-
-
-// enableMocking().then(() => {
-//     AppRegistry.registerComponent(appName, () => App)
-// })
-
 import { AppRegistry } from 'react-native';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { App } from './src/App';  // Asegúrate de que la ruta sea correcta
 import { name as appName } from './app.json';
+import { LoadingIndicator } from './src/ui/components/shared';
+import Reactotron from "reactotron-react-native";
+
+Reactotron.configure() // controls connection & communication settings
+  .useReactNative() // add all built-in react native plugins
+  .connect();
 
 // Función para habilitar los mocks
-async function enableMocking() {
+function enableMocking() {
     if (__DEV__) {
-        await import('./msw.polyfills'); // Asegúrate de que 'msw.polyfills' esté disponible
-        const { server } = await import('./src/mocks/server'); // Cargar el servidor de mocks
+        // Reactotron.configure() // controls connection & communication settings
+        //     .useReactNative() // add all built-in react native plugins
+        //     .connect();
+        require('./msw.polyfills');
+        const { server } = require('./src/mocks/server'); // Cargar el servidor de mocks
         server.listen(); // Iniciar el servidor de mocks
-        console.log(server.listHandlers())
+        console.log(...server.listHandlers())
     }
 }
 
 // Componente funcional que maneja la habilitación de mocks
-const AppWrapper = () => {
-    const [isMockingEnabled, setMockingEnabled] = useState(false);
+// const AppWrapper = () => {
+//     const [isMockingEnabled, setMockingEnabled] = useState(false);
 
-    useEffect(() => {
-        enableMocking().then(() => setMockingEnabled(true));
-    }, []);
+//     useEffect(() => {
+//         enableMocking().then(() => setMockingEnabled(true));
+//     }, []);
 
-    if (!isMockingEnabled) {
-        return null;  // O mostrar un loader mientras se configuran los mocks
-    }
+//     if (!isMockingEnabled) {
+//         return <LoadingIndicator/>;  // O mostrar un loader mientras se configuran los mocks
+//     }
 
-    return <App />;  // Renderiza la app cuando los mocks estén habilitados
-};
+//     return <App />;  // Renderiza la app cuando los mocks estén habilitados
+// };
 
 // Registrar el componente funcional AppWrapper
-AppRegistry.registerComponent(appName, () => AppWrapper);
+//enableMocking().then(() => registerComponent(appName, () => App));
+enableMocking()
+AppRegistry.registerComponent(appName, () => App)
